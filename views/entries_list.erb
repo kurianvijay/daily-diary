@@ -1,9 +1,13 @@
 <%= erb :nav %>
 
 <div class="container">
+  <h3>Diary Entries</h3>
   <ul>
     <% for entry in @entries %>
-      <li> <a href="/read?id=<%= entry.id %>" id="entry_<%= entry.id %>"> <%= entry.title %> </a></li>
+      <li>
+        <a href="/read?id=<%= entry.id %>" id="entry_<%= entry.id %>"> <%= entry.title %> </a>
+        <a class="btn btn-warning btn-sm" href="/delete?id=<%= entry.id %>" id="delete_entry_<%= entry.id %>"> Delete </a>
+      </li>
     <% end %>
   </ul>
 </div>

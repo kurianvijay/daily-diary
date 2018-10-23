@@ -3,13 +3,14 @@
 
 <div class="container">
   <div class="jumbotron">
-    <form action="/insert-entry" method="post">
+    <h3>New Entry</h3>
+    <form action="<%= @action %>" method="post">
       <div class="form-group">
         <label for="title"> Title </label>
-        <input class="form-control" type="text" name="title" id="title">
+        <input class="form-control" type="text" name="title" id="title" value="<%= @title %>">
         <label for="body"> Entry </label>
-        <textarea class="form-control" name="body" id="body"></textarea>
-        <input class="btn btn-success float-right" type="submit" value="Submit">
+        <textarea class="form-control" name="body" id="body"><%= @body %></textarea>
+        <input class="btn btn-success float-right" type="submit" value="Save">
       </div>
     </form>
   </div>
