@@ -1,9 +1,11 @@
 require 'sinatra/base'
+require './lib/entry'
 
 class DailyDiaryApp < Sinatra::Base
 
 
   get '/' do
+    @entries = Entry.all
     erb :entries
   end
 
@@ -13,9 +15,7 @@ class DailyDiaryApp < Sinatra::Base
   end
 
   post '/add-entry' do
-    # title = params['title']
-    # body = params['body']
-    # Diary.create(title: title, body: body)
+    Entry.create(title: params['title'], body: params['body'])
     redirect '/'
   end
 
