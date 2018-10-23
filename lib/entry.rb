@@ -2,9 +2,10 @@ require 'pg'
 
 class Entry
 
-  attr_reader :title, :body
+  attr_reader :id, :title, :body
 
-  def initialize(title:, body:)
+  def initialize(id:, title:, body:)
+    @id = id
     @title = title
     @body = body
   end
@@ -36,7 +37,7 @@ class Entry
   end
 
   def self.initialize(rs)
-    Entry.new(title: rs['title'], body: rs['body'])
+    Entry.new(id: rs['id'], title: rs['title'], body: rs['body'])
   end
 
   def self.db_connect

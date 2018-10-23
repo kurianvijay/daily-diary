@@ -1,0 +1,9 @@
+<%= erb :nav %>
+
+<div class="container">
+  <ul>
+    <% for entry in @entries %>
+      <li> <a href="/read?id=<%= entry.id %>" id="entry_<%= entry.id %>"> <%= entry.title %> </a></li>
+    <% end %>
+  </ul>
+</div>
