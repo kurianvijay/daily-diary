@@ -1,4 +1,4 @@
-require 'pg'
+require_relative 'postgresql_manager'
 
 class Entry
 
@@ -11,51 +11,50 @@ class Entry
   end
 
   def self.create(title:, body:)
-    db_connect
     query = "INSERT INTO Entries(Title, Body) VALUES('#{title}', '#{body}') RETURNING id, title, body;"
-    initialize((@con.exec(query))[0])
+    initialize((PostgresqlManager.connect.exec(query))[0])
   end
 
   def self.get(id)
-    db_connect
     query = "SELECT * FROM Entries WHERE Id=#{id};"
-    initialize((@con.exec(query))[0])
+    initialize((PostgresqlManager.connect.exec(query))[0])
   end
 
   def self.all
-    db_connect
-    rs = @con.exec "SELECT * FROM Entries ORDER BY id;"
-    rs.map { |row| initialize(row) }
+    query = "SELECT * FROM Entries ORDER BY id;"
+    PostgresqlManager.connect.exec(query).map { |row| initialize(row) }
   end
 
 
   def self.update(id:, title:, body:)
-    db_connect
     query = "UPDATE Entries SET title = '#{title}', body = '#{body}' WHERE Id=#{id};"
-    @con.exec(query)
+    PostgresqlManager.connect.exec(query)
     get(id)
   end
 
   def self.delete(id)
-    db_connect
-    @con.exec "DELETE FROM Entries WHERE id=#{id};"
+    PostgresqlManager.connect.exec "DELETE FROM Entries WHERE id=#{id};"
   end
 
   def self.initialize(rs)
     Entry.new(id: rs['id'], title: rs['title'], body: rs['body'])
   end
 
-  def self.db_connect
-    # begin
-        database = ENV['RACK_ENV'] == 'test' ? 'diary_test' : 'diary'
-        @con = PG.connect :dbname => database
-    #     puts con.server_version
-    # rescue PG::Error => e
-    #     puts e.message
-    # ensure
-    #     con.close if con
-    # end
-    # con ||= nil
+  # def self.db_connect
+  #   # begin
+  #       con = PostgresqlManager.connect
+  #   #     puts con.server_version
+  #   # rescue PG::Error => e
+  #   #     puts e.message
+  #   # ensure
+  #   #     con.close if con
+  #   # end
+  #   # con ||= nil
+  # end
+
+  def comments
+    query = "SELECT * FROM Comments WHERE entry_id=#{@id};"
+    PostgresqlManager.connect.exec(query)
   end
 
 end
