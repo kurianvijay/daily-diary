@@ -10,9 +10,8 @@ class DailyDiaryApp < Sinatra::Base
   end
 
   get '/new-entry' do
+    @entry = Entry.new(id: nil, title: nil, body: nil)
     @action = '/insert-entry'
-    @title = ''
-    @body = ''
     erb :entry_form
   end
 
@@ -34,14 +33,16 @@ class DailyDiaryApp < Sinatra::Base
   get '/update-entry' do
     @entry = Entry.get(params['id'])
     @action = "/update?id=#{@entry.id}"
-    @title = @entry.title
-    @body = @entry.body
     erb :entry_form
   end
 
   post '/update' do
     @entry = Entry.update(id: params['id'], title: params['title'], body: params['body'])
     redirect "/read?id=#{@entry.id}"
+  end
+
+  post '/save-comment'do
+    erb :entry_detail
   end
 
 end

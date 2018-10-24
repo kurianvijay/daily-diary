@@ -4,4 +4,19 @@
   <h3><%= @entry.title %></h3>
   <p><%= @entry.body %></p>
   <a class="btn btn-primary float-right" href="/update-entry?id=<%= @entry.id %>">Update</a>
+
+  <form action="/save-comment?entry_id=<%= @entry.id %>" method="post">
+    <div class="form-group">
+      <label for="new_comment"> New Comment </label>
+      <input type="text" class="form-control" id="new_comment">
+      <input type="submit" value="Save Comment">
+    </div>
+  </form>
+
+  <div class="container">
+    <% for comment in @entry.comments %>
+      <p>comment</p>
+    <% end %>
+  </div>
+
 </div>

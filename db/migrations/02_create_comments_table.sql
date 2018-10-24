@@ -1,0 +1,5 @@
+CREATE TABLE Comments(
+  id SERIAL PRIMARY KEY,
+  body TEXT,
+  entry_id INTEGER REFERENCES Entries(id) ON DELETE CASCADE
+);
