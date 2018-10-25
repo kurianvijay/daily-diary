@@ -32,4 +32,12 @@ describe Entry do
     end
   end
 
+  describe '::filter_by_tag' do
+    it 'should filter by tag category' do
+      entries = Entry.filter_by_tag(1)
+      expect(entries.length).to eq 1
+      expect(entries[0].id).to eq '1'
+    end
+  end
+
 end

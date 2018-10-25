@@ -1,18 +1,23 @@
 <%= erb :nav %>
 
 <div class="container">
+  <br>
+  <h3>Filters</h3>
+  <% for tag in @tags %>
+    <!-- <button class="btn btn-secondary btn-sm" type="button" name="button"> <%= tag.name %> </button> -->
+    <a class="btn btn-secondary btn-sm" href="/filter?tag_id=<%= tag.id %>"> <%= tag.name %> </a>
+  <% end %>
+  <a class="btn btn-sm" href="/"> Remove Filter </a>
+  <br>
   <h3>Diary Entries</h3>
-  <ul>
     <% for entry in @entries %>
-      <li>
+      <div class="border rounded bg-light">
         <a href="/read?id=<%= entry.id %>" id="entry_<%= entry.id %>"> <%= entry.title %> </a>
         <% for tag in entry.tags %>
-          <span class="badge badge-primary"><%= tag.name %></span>
-          <% end %>
-        <!-- <br> -->
-        <!-- <img src="assets/icons/delete-4x.png" alt="icon name"> -->
-        <a class="btn btn-warning btn-sm" href="/delete?id=<%= entry.id %>" id="delete_entry_<%= entry.id %>"> Delete </a>
-      </li>
+          <span class="badge badge-secondary"><%= tag.name %></span>
+        <% end %>
+        <a class="btn btn-warning btn-sm float-right" href="/delete?id=<%= entry.id %>" id="delete_entry_<%= entry.id %>"> Delete </a>
+      </div>
+      <br>
     <% end %>
-  </ul>
 </div>

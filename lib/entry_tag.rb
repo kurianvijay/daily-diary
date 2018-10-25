@@ -1,7 +1,6 @@
 class EntryTag
 
   def self.create(entry_id, tag_id)
-    p entry_id, tag_id
     query = "INSERT INTO EntryTags(entry_id, tag_id) VALUES('#{entry_id}', '#{tag_id}') RETURNING entry_id, tag_id;"
     initialize((PostgresqlManager.query(query))[0])
   end
@@ -12,7 +11,6 @@ class EntryTag
   end
 
   def self.update(entry_id, tag_ids)
-    
     query = "DELETE FROM EntryTags"\
               " WHERE entry_id=#{entry_id};"
     insert = "INSERT INTO EntryTags(entry_id, tag_id)"\

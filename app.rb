@@ -6,12 +6,17 @@ require './lib/tag'
 require './lib/entry_tag'
 require './database_setup'
 
-p ENV['RACK_ENV']
-
 class DailyDiaryApp < Sinatra::Base
 
   get '/' do
     @entries = Entry.all
+    @tags = Tag.all
+    erb :entries_list
+  end
+
+  get '/filter' do
+    @entries = Entry.filter_by_tag(params['tag_id'])
+    @tags = Tag.all
     erb :entries_list
   end
 
@@ -80,7 +85,5 @@ class DailyDiaryApp < Sinatra::Base
     Tag.create(name: params['name'])
     redirect params['redirect']
   end
-
-
 
 end

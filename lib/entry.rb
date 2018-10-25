@@ -19,6 +19,14 @@ class Entry
     PostgresqlManager.query(query).map { |row| initialize(row) }
   end
 
+  def  self.filter_by_tag(tag_id)
+    query = "SELECT e.id, e.title, e.body "\
+            "FROM EntryTags et "\
+            "INNER JOIN Entries e ON e.id = et.entry_id "\
+            "WHERE et.tag_id = #{tag_id};"
+    PostgresqlManager.query(query).map { |row| initialize(row) }
+  end
+
   def self.update(id:, title:, body:)
     query = "UPDATE Entries SET title = '#{title}', body = '#{body}' WHERE Id=#{id};"
     PostgresqlManager.query(query)
