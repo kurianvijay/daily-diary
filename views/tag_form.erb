@@ -1,0 +1,14 @@
+<%= erb :nav %>
+
+<div class="container">
+  <div class="jumbotron">
+    <h3>Create Tag</h3>
+    <form action="<%= @action %>" method="post">
+      <div class="form-group">
+        <label for="name"> Name </label>
+        <input class="form-control" name="name" id="name" value="<%= @tag.name %>">
+        <input class="btn btn-success float-right" type="submit" value="Save">
+      </div>
+    </form>
+  </div>
+</div>
