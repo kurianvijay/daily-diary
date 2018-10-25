@@ -15,15 +15,11 @@ describe Entry do
   end
 
   describe '#comments' do
-    let(:comment_1) {double :comment_1}
-    let(:comment_2) {double :comment_2}
-    let(:connection) {double :connection}
-    subject { described_class.new(id: 1, title: '22nd October 2018', body: 'This is the first entry') }
+    subject { described_class.get(1) }
     it 'should return and array of comments' do
-      allow(connection).to receive(:exec).and_return([comment_1, comment_2])
-      allow(PostgresqlManager).to receive(:connect).and_return(connection)
-      expect(subject.comments).to eq [comment_1, comment_2]
+      comments = subject.comments
+      expect(comments.length).to eq 3
+      expect(comments[0].body).to eq 'Fist comment'
     end
   end
-
 end

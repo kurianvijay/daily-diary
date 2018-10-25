@@ -2,14 +2,6 @@ require_relative 'postgresql_manager'
 
 class Entry
 
-  attr_reader :id, :title, :body
-
-  def initialize(id:, title:, body:)
-    @id = id
-    @title = title
-    @body = body
-  end
-
   def self.create(title:, body:)
     query = "INSERT INTO Entries(Title, Body) VALUES('#{title}', '#{body}') RETURNING id, title, body;"
     initialize((PostgresqlManager.connect.exec(query))[0])
@@ -40,21 +32,17 @@ class Entry
     Entry.new(id: rs['id'], title: rs['title'], body: rs['body'])
   end
 
-  # def self.db_connect
-  #   # begin
-  #       con = PostgresqlManager.connect
-  #   #     puts con.server_version
-  #   # rescue PG::Error => e
-  #   #     puts e.message
-  #   # ensure
-  #   #     con.close if con
-  #   # end
-  #   # con ||= nil
-  # end
+  attr_reader :id, :title, :body
+
+  def initialize(id:, title:, body:)
+    @id = id
+    @title = title
+    @body = body
+  end
 
   def comments
     query = "SELECT * FROM Comments WHERE entry_id=#{@id};"
-    PostgresqlManager.connect.exec(query)
+    PostgresqlManager.connect.exec(query).map { |row| Comment.new(id: row['id'], body: row['body'], entry_id: row['entry_id']) }
   end
 
 end
