@@ -12,6 +12,7 @@ class DailyDiaryApp < Sinatra::Base
 
   get '/new-entry' do
     @entry = Entry.new(id: nil, title: nil, body: nil)
+    @header = 'New Entry'
     @action = '/insert-entry'
     erb :entry_form
   end
@@ -34,6 +35,7 @@ class DailyDiaryApp < Sinatra::Base
   get '/update-entry' do
     @entry = Entry.get(params['id'])
     @action = "/update?id=#{@entry.id}"
+    @header = 'Update Entry'
     erb :entry_form
   end
 
@@ -63,5 +65,7 @@ class DailyDiaryApp < Sinatra::Base
     Tag.create(name: params['name'])
     redirect '/tags'
   end
+
+
 
 end

@@ -1,8 +1,9 @@
 <%= erb :nav %>
 
 <div class="container">
+  <br>
   <h3><%= @entry.title %></h3>
-  <p><%= @entry.body %></p>
+  <p class="shadow-none p-3 mb-5 bg-light rounded border"><%= @entry.body %></p>
   <a class="btn btn-primary float-right" href="/update-entry?id=<%= @entry.id %>">Update</a>
   <br>
   <form action="/save-comment?entry_id=<%= @entry.id %>" method="post">

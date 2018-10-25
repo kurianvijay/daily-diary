@@ -1,7 +1,6 @@
 feature 'user can updates entry' do
   scenario 'user updates entry' do
-    entry = add_entry
-    visit("/update-entry?id=#{entry.id}")
+    visit("/update-entry?id=1")
     fill_in('title', :with => 'Updated title')
     fill_in('body', :with => 'Updated body')
     click_button("Save")
