@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'uri'
 require './lib/entry'
 require './lib/comment'
 require './lib/tag'
@@ -12,13 +13,18 @@ class DailyDiaryApp < Sinatra::Base
 
   get '/new-entry' do
     @entry = Entry.new(id: nil, title: nil, body: nil)
+    @url = URI::encode("/new-entry")
     @header = 'New Entry'
     @action = '/insert-entry'
+    @tags = Tag.all
+
     erb :entry_form
   end
 
   post '/insert-entry' do
-    Entry.create(title: params['title'], body: params['body'])
+    entry = Entry.create(title: params['title'], body: params['body'])
+    tags = params.select{ |param| param.start_with?('tag') }.map{|z| z[1].to_i}
+    EntryTag.update(entry.id, tags)
     redirect '/'
   end
 
@@ -34,8 +40,10 @@ class DailyDiaryApp < Sinatra::Base
 
   get '/update-entry' do
     @entry = Entry.get(params['id'])
+    @url = URI::encode("/update-entry?id=#{params['id']}")
     @action = "/update?id=#{@entry.id}"
     @header = 'Update Entry'
+    @tags = Tag.all
     erb :entry_form
   end
 
@@ -52,7 +60,8 @@ class DailyDiaryApp < Sinatra::Base
   get '/create-tag' do
     # @tag = Tag.create(name: params['name'])
     @tag = Tag.new(id: nil, name: nil)
-    @action = '/insert-tag'
+    params['redirect'].nil? ? redirect = URI::encode('/tags') : redirect = params['redirect']
+    @action = "/insert-tag?redirect=#{redirect}"
     erb :tag_form
   end
 
@@ -63,7 +72,7 @@ class DailyDiaryApp < Sinatra::Base
 
   post '/insert-tag' do
     Tag.create(name: params['name'])
-    redirect '/tags'
+    redirect params['redirect']
   end
 
 

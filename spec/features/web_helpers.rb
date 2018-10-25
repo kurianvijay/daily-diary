@@ -7,6 +7,6 @@ def visit_new_entry_page_and_fill_in_title_and_body
 end
 
 def add_tags_to_diary_entry
-  choose('happy')
-  choose('sport')
+  check('Sport')
+  check('Happy')
 end

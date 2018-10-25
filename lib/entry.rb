@@ -1,4 +1,6 @@
 require_relative 'postgresql_manager'
+require_relative 'comment'
+require_relative 'tag'
 
 class Entry
 
@@ -16,7 +18,6 @@ class Entry
     query = "SELECT * FROM Entries ORDER BY id;"
     PostgresqlManager.connect.exec(query).map { |row| initialize(row) }
   end
-
 
   def self.update(id:, title:, body:)
     query = "UPDATE Entries SET title = '#{title}', body = '#{body}' WHERE Id=#{id};"
@@ -43,6 +44,14 @@ class Entry
   def comments
     query = "SELECT * FROM Comments WHERE entry_id=#{@id};"
     PostgresqlManager.connect.exec(query).map { |row| Comment.new(id: row['id'], body: row['body'], entry_id: row['entry_id']) }
+  end
+
+  def tags
+    query = "SELECT t.id, t.name "\
+            "FROM EntryTags et "\
+            "INNER JOIN Tags t ON t.id = et.tag_id "\
+            "WHERE et.entry_id = #{@id};"
+    PostgresqlManager.connect.exec(query).map { |row| Tag.new(id: row['id'], name: row['name']) }
   end
 
 end

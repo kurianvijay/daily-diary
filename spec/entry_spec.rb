@@ -22,4 +22,14 @@ describe Entry do
       expect(comments[0].body).to eq 'Fist comment'
     end
   end
+
+  describe '#tags' do
+    subject { described_class.get(1) }
+    it 'should return an array of the tags for the entry' do
+      tags = subject.tags
+      expect(tags.length).to eq 3
+      expect(tags[0].name).to eq 'Happy'
+    end
+  end
+
 end

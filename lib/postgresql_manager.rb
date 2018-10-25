@@ -14,6 +14,7 @@ class PostgresqlManager
 
   def self.connect
     database = ENV['RACK_ENV'] == 'test' ? 'diary_test' : 'diary'
+    # database = 'diary_test'
     instance = PostgresqlManager.new(database)
     instance.connection
   end

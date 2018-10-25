@@ -3,6 +3,11 @@
 <div class="container">
   <br>
   <h3><%= @entry.title %></h3>
+  <% for tag in @entry.tags %>
+    <span class="badge badge-primary"><%= tag.name %></span>
+  <% end %>
+  <br>
+  <br>
   <p class="shadow-none p-3 mb-5 bg-light rounded border"><%= @entry.body %></p>
   <a class="btn btn-primary float-right" href="/update-entry?id=<%= @entry.id %>">Update</a>
   <br>
