@@ -1,7 +1,6 @@
 require 'postgresql_manager'
 
-def setup_test_database
-  p "Setting up test database..."
+def setup_test_data
 
   truncate_database = "TRUNCATE EntryTags, Comments, Entries, Tags;"
 
@@ -38,5 +37,5 @@ def setup_test_database
   q += create_entry_tags
   q += create_comments
 
-  PostgresqlManager.connect.exec(q)
+  PostgresqlManager.query(q)
 end

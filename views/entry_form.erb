@@ -7,7 +7,12 @@
     <form action="<%= @action %>" method="post">
       <div class="form-group">
         <% for tag in @tags %>
-          <span class="border"><label class="checkbox-inline"><input type="checkbox" value="<%= tag.id %>" name="tag<%= tag.id %>"> <%= tag.name %> </label></span>
+          <span class="border">
+            <label class="checkbox-inline">
+            <input type="checkbox" value="<%= tag.id %>" name="tag<%= tag.id %>" <% if @entry.tags.map(&:id).include? tag.id %> checked <% end %>>
+            <%= tag.name %>
+          </label>
+        </span>
         <% end %>
         <a class="btn btn-sm btn-outline-success" href="/create-tag?redirect=<%= @url %>">Add Tag</a>
         <br>

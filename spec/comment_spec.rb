@@ -15,7 +15,7 @@ describe Comment do
   describe '.create' do
     it 'should add comment to database and return comment object' do
       comment = Comment.create('Test comment', 2)
-      query_result = PostgresqlManager.connect.exec "Select * FROM Comments WHERE entry_id=2;"
+      query_result = PostgresqlManager.query "Select * FROM Comments WHERE entry_id=2;"
       db_comment = query_result[0]
       expect(query_result.count).to eq 1
       expect(db_comment['body']).to eq 'Test comment'

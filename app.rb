@@ -3,6 +3,10 @@ require 'uri'
 require './lib/entry'
 require './lib/comment'
 require './lib/tag'
+require './lib/entry_tag'
+require './database_setup'
+
+p ENV['RACK_ENV']
 
 class DailyDiaryApp < Sinatra::Base
 
@@ -49,6 +53,8 @@ class DailyDiaryApp < Sinatra::Base
 
   post '/update' do
     @entry = Entry.update(id: params['id'], title: params['title'], body: params['body'])
+    tags = params.select{ |param| param.start_with?('tag') }.map{|z| z[1].to_i}
+    EntryTag.update(@entry.id, tags)
     redirect "/read?id=#{@entry.id}"
   end
 

@@ -2,12 +2,12 @@ class Tag
 
   def self.create(name:)
     query = "INSERT INTO Tags(name) VALUES('#{name}') RETURNING id, name;"
-    initialize((PostgresqlManager.connect.exec(query))[0])
+    initialize((PostgresqlManager.query(query))[0])
   end
 
   def self.all
     query = "SELECT * FROM Tags ORDER BY id;"
-    PostgresqlManager.connect.exec(query).map { |row| initialize(row) }
+    PostgresqlManager.query(query).map { |row| initialize(row) }
   end
 
   def self.initialize(rs)

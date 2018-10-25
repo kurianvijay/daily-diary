@@ -2,7 +2,7 @@ class Comment
 
   def self.create(body, entry_id)
     query = "INSERT INTO Comments(body, entry_id) VALUES('#{body}', '#{entry_id}') RETURNING id, body, entry_id;"
-    initialize((PostgresqlManager.connect.exec(query))[0])
+    initialize((PostgresqlManager.query(query))[0])
   end
 
   def self.initialize(rs)
