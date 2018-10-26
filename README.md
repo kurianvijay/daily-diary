@@ -50,14 +50,14 @@ In your browser visit localhost:9292
 3. Select entry to be deleted
 4. Select entry to be read
 
-![homescreen](./docs/screenshots/homepage.png)
+<kbd>![homescreen](./docs/screenshots/homepage.png)</kbd>
 
 ##### filter
 The entries can be filtered by the tags listed at the top of the screen
 
 The filter can be removed by selecting 'Remove Filter'
 
-![homescreen](./docs/screenshots/filter.png)
+<kbd>![homescreen](./docs/screenshots/filter.png)</kbd>
 
 ##### create new entry: /new-entry
 
@@ -66,7 +66,7 @@ The filter can be removed by selecting 'Remove Filter'
 3. Enter a title
 4. Enter a diary entry
 
-![homescreen](./docs/screenshots/new-entry.png)
+<kbd>![homescreen](./docs/screenshots/new-entry.png)</kbd>
 
 ##### view entry: /read?id=
 1. View the tags
@@ -75,7 +75,7 @@ The filter can be removed by selecting 'Remove Filter'
 4. Enter a comment
 5. View previous comments
 
-![homescreen](./docs/screenshots/view-entry-add-comments.png)
+<kbd>![homescreen](./docs/screenshots/view-entry-add-comments.png)</kbd>
 
 
 ##### update entry: /udpate-entry?id=
@@ -83,9 +83,9 @@ The filter can be removed by selecting 'Remove Filter'
 2. Update the title
 3. Update the diary entry
 
-![homescreen](./docs/screenshots/update-entry.png)
+<kbd>![homescreen](./docs/screenshots/update-entry.png)</kbd>
 
 ##### create tag: /create-tag
 1. Enter a new tag
 
-![homescreen](./docs/screenshots/create-tag.png)
+<kbd>![homescreen](./docs/screenshots/create-tag.png)</kbd>
