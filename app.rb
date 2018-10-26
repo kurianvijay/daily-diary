@@ -69,9 +69,8 @@ class DailyDiaryApp < Sinatra::Base
   end
 
   get '/create-tag' do
-    # @tag = Tag.create(name: params['name'])
     @tag = Tag.new(id: nil, name: nil)
-    params['redirect'].nil? ? redirect = URI::encode('/tags') : redirect = params['redirect']
+    params['redirect'].nil? ? redirect = URI::encode('/') : redirect = params['redirect']
     @action = "/insert-tag?redirect=#{redirect}"
     erb :tag_form
   end

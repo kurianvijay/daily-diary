@@ -1,7 +1,7 @@
 class Tag
 
   def self.create(name:)
-    query = "INSERT INTO Tags(name) VALUES('#{name}') RETURNING id, name;"
+    query = "INSERT INTO Tags(name) VALUES($$#{name}$$) RETURNING id, name;"
     initialize((PostgresqlManager.query(query))[0])
   end
 

@@ -40,4 +40,18 @@ describe Entry do
     end
   end
 
+  describe '::create' do
+    it 'should create a new entry' do
+      entry = Entry.create(title: 'Test', body: 'Test Body')
+      expect(entry).to be_a(Entry)
+      expect(Entry.all.length).to eq 4
+    end
+
+    it 'should create a new entry with special characters in body and title' do
+      entry = Entry.create(title: "Test's", body: "Test B'ody! It's great.")
+      expect(entry).to be_a(Entry)
+      expect(Entry.all.length).to eq 4
+    end
+
+  end
 end

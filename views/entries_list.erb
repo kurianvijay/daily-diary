@@ -4,7 +4,6 @@
   <br>
   <h3>Filters</h3>
   <% for tag in @tags %>
-    <!-- <button class="btn btn-secondary btn-sm" type="button" name="button"> <%= tag.name %> </button> -->
     <a class="btn btn-secondary btn-sm" href="/filter?tag_id=<%= tag.id %>"> <%= tag.name %> </a>
   <% end %>
   <a class="btn btn-sm" href="/"> Remove Filter </a>

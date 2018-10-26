@@ -1,7 +1,7 @@
 class EntryTag
 
   def self.create(entry_id, tag_id)
-    query = "INSERT INTO EntryTags(entry_id, tag_id) VALUES('#{entry_id}', '#{tag_id}') RETURNING entry_id, tag_id;"
+    query = "INSERT INTO EntryTags(entry_id, tag_id) VALUES($$#{entry_id}$$, $$#{tag_id}$$) RETURNING entry_id, tag_id;"
     initialize((PostgresqlManager.query(query))[0])
   end
 

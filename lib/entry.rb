@@ -5,10 +5,9 @@ require_relative 'tag'
 class Entry
 
   def self.create(title:, body:)
-    query = "INSERT INTO Entries(Title, Body) VALUES('#{title}', '#{body}') RETURNING id, title, body;"
+    query = "INSERT INTO Entries(Title, Body) VALUES($$#{title}$$, $$#{body}$$) RETURNING id, title, body;"
     initialize((PostgresqlManager.query(query))[0])
   end
-
   def self.get(id)
     query = "SELECT * FROM Entries WHERE Id=#{id};"
     initialize((PostgresqlManager.query(query))[0])
@@ -28,7 +27,7 @@ class Entry
   end
 
   def self.update(id:, title:, body:)
-    query = "UPDATE Entries SET title = '#{title}', body = '#{body}' WHERE Id=#{id};"
+    query = "UPDATE Entries SET title = $$#{title}$$, body = $$#{body}$$ WHERE Id=#{id};"
     PostgresqlManager.query(query)
     get(id)
   end
