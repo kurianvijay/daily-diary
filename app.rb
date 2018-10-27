@@ -85,4 +85,16 @@ class DailyDiaryApp < Sinatra::Base
     redirect params['redirect']
   end
 
+  get'/user_registration' do
+    erb :user_registration
+  end
+
+  post '/register_user' do
+    redirect '/successful_user_registration'
+  end
+
+  get '/successful_user_registration' do
+    erb :successful_user_registration
+  end
+
 end

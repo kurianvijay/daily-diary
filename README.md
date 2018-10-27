@@ -4,7 +4,7 @@
 
 #### Prerequisites
 
-PostgresSQL
+The PostgreSQL database management system must be installed on your system.
 ```sh
 $ psql -V
 ```
@@ -25,7 +25,11 @@ $ git clone https://github.com/toddpla/daily-diary.git
 
 $ cd daily-diary
 
-$ bundle
+$ bundle install
+
+$ rake setup
+
+$rspec
 ```
 #### Database migrations
 Create two database named:
@@ -33,7 +37,6 @@ Create two database named:
 2. 'diary_test'
 
 Then run the migrations in the db/migrations directory for both databases.
-
 
 ### Run
 ```
