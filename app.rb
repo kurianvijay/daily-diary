@@ -1,16 +1,21 @@
 require 'sinatra/base'
 require 'uri'
+require './database_setup'
 require './lib/entry'
 require './lib/comment'
 require './lib/tag'
 require './lib/entry_tag'
-require './database_setup'
+require './lib/user'
+
 
 class DailyDiaryApp < Sinatra::Base
+
+  enable :sessions
 
   get '/' do
     @entries = Entry.all
     @tags = Tag.all
+    @user = User.find(session[:user_id])
     erb :entries_list
   end
 
@@ -90,11 +95,18 @@ class DailyDiaryApp < Sinatra::Base
   end
 
   post '/register_user' do
-    redirect '/successful_user_registration'
+    user = User.create(
+      first_name: params['first_name'],
+      last_name: params['last_name'],
+      email: params['email'],
+      password: params['password']
+    )
+    session[:user_id] = user.id
+    redirect '/'
   end
 
-  get '/successful_user_registration' do
-    erb :successful_user_registration
-  end
+  # get '/successful_user_registration' do
+  #   erb :successful_user_registration
+  # end
 
 end

@@ -8,6 +8,7 @@ class Entry
     query = "INSERT INTO Entries(Title, Body) VALUES($$#{title}$$, $$#{body}$$) RETURNING id, title, body;"
     initialize((PostgresqlManager.query(query))[0])
   end
+
   def self.get(id)
     query = "SELECT * FROM Entries WHERE Id=#{id};"
     initialize((PostgresqlManager.query(query))[0])

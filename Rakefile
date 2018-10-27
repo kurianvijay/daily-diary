@@ -13,7 +13,7 @@ end
 
 task :setup_test_data do
 
-  truncate_database = "TRUNCATE EntryTags, Comments, Entries, Tags;"
+  truncate_database = "TRUNCATE Users, EntryTags, Comments, Entries, Tags;"
 
   create_tags =       "INSERT INTO Tags(id, name)"\
                       "VALUES"\
@@ -42,11 +42,18 @@ task :setup_test_data do
                       "('2', 'Second comment', 1),"\
                       "('3', 'Third comment', 1);"
 
+  create_users =      "INSERT INTO Users(id, first_name, last_name, email, password)"\
+                      "VALUES"\
+                      "('1', 'Harry', 'Enfield', 'harry@enfield.com', '$2a$10$0FlvRMmSiehnX9IB0cAoB.yliEWZaf1k3RkPRvvqHc/J4OH2ikwYK'),"\
+                      "('2', 'Jim', 'Carey', 'jim@carey.com', '$2a$10$0FlvRMmSiehnX9IB0cAoB.yliEWZaf1k3RkPRvvqHc/J4OH2ikwYK'),"\
+                      "('3', 'John', 'Cleese', 'john@cleese.com', '$2a$10$0FlvRMmSiehnX9IB0cAoB.yliEWZaf1k3RkPRvvqHc/J4OH2ikwYK');"
+
   q = truncate_database
   q += create_tags
   q += create_entries
   q += create_entry_tags
   q += create_comments
+  q += create_users
 
   connection = PG.connect(dbname: 'diary_test').exec(q)
 end

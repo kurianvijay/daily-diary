@@ -5,6 +5,6 @@ feature 'user registration' do
     fill_in('last_name', with: 'Bond')
     fill_in('email', with: '007@mi6.gov')
     click_button('Register')
-    expect(page).to have_content('Registration successful')
+    expect(page).to have_content('Welcome, 007@mi6.gov')
   end
 end
