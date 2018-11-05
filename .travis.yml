@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - 2.5.1
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database diary_test;' -U postgres
+
+script:
+  - rspec

@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/flash'
 require 'uri'
 require './database_setup'
 require './lib/entry'
@@ -7,10 +8,10 @@ require './lib/tag'
 require './lib/entry_tag'
 require './lib/user'
 
-
 class DailyDiaryApp < Sinatra::Base
 
   enable :sessions
+  register Sinatra::Flash
 
   get '/' do
     @entries = Entry.all
@@ -31,7 +32,6 @@ class DailyDiaryApp < Sinatra::Base
     @header = 'New Entry'
     @action = '/insert-entry'
     @tags = Tag.all
-
     erb :entry_form
   end
 
@@ -105,8 +105,25 @@ class DailyDiaryApp < Sinatra::Base
     redirect '/'
   end
 
-  # get '/successful_user_registration' do
-  #   erb :successful_user_registration
-  # end
+  get '/session/new' do
+    erb :login
+  end
+
+  post '/sessions' do
+    user = User.authenticate(email: params['email'], password: params['password'])
+    if user
+      session[:user_id] = user.id
+      redirect('/')
+    else
+      flash[:notice] = 'Please check your email or password.'
+      redirect('/session/new')
+    end
+  end
+
+  post '/sessions/destroy' do
+    session.clear
+    flash[:notice] = 'You have signed out.'
+    redirect('/')
+  end
 
 end

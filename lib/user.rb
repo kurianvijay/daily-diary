@@ -21,6 +21,16 @@ class User
     initialize((PostgresqlManager.query(q))[0])
   end
 
+  def self.authenticate(email:, password:)
+    q =   "SELECT * FROM Users"\
+          " WHERE"\
+          " email='#{email}';"
+    result = PostgresqlManager.query(q)
+    return unless result.any?
+    return unless BCrypt::Password.new(result[0]['password']) == password
+    initialize(result[0])
+  end
+
   def self.initialize(user)
     User.new(id: user['id'], first_name: user['first_name'], last_name: user['last_name'], email: user['email'])
   end
@@ -33,14 +43,5 @@ class User
     @last_name = last_name
     @email = email
   end
-
-  # def password
-  #   @password ||= Password.new(password_hash)
-  # end
-  #
-  # def password=(new_password)
-  #   @password = Password.create(new_password)
-  #   self.password_hash = @password
-  # end
 
 end

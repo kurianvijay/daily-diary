@@ -56,4 +56,5 @@ task :setup_test_data do
   q += create_users
 
   connection = PG.connect(dbname: 'diary_test').exec(q)
+  
 end

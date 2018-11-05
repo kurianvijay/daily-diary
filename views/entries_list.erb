@@ -1,9 +1,9 @@
 <%= erb :nav %>
-
 <div class="container">
   <% if @user %>
     <h1>Welcome, <%= @user.email %></h1>
   <% end %>
+  <h2><%= flash[:notice] %></h2>
   <br>
   <h3>Filters</h3>
   <% for tag in @tags %>

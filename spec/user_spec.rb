@@ -19,6 +19,11 @@ describe User do
     end
   end
 
-
+  describe '::authenticate' do
+    it 'returns a user given a correct username and password, if one exists' do
+      authenticated_user = User.authenticate(email: 'harry@enfield.com', password: 'password')
+      expect(authenticated_user.id).to eq '1'
+    end
+  end
 
 end
